@@ -1,0 +1,20 @@
+FROM python:3.9.13-slim-buster
+
+ENV PYTHONBUFFERED 1
+
+EXPOSE 8000
+
+RUN set -xe \
+    && apt-get update -q \
+    && apt-get install -y --no-install-recommends gettext poppler-utils\
+    && apt-get autoremove -y \
+    && apt-get clean -y \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY src/requirements.txt .
+
+RUN pip install -r requirements.txt
+
+WORKDIR /src
+
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

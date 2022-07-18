@@ -1,0 +1,60 @@
+version: '3.7'
+
+services:
+  backend:
+    image: django
+    build:
+      context: .
+      dockerfile: Dockerfile-django
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./src:/src"
+    environment:
+      - PYTHONBUFFERED=1
+    env_file: ./src/.env
+    depends_on:
+      - news_db
+    container_name: backend
+    networks:
+      - news_local_services
+    restart: always
+
+  news_db:
+    image: postgres:13-alpine
+    volumes:
+      - ".data/postgres:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_DB: news
+      POSTGRES_USER: news
+      POSTGRES_PASSWORD: news
+    container_name: news_db
+    ports:
+      - "5433:5433"
+    networks:
+      - news_local_services
+  
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile-node
+      args:
+        REACT_APP_API_URL: "http://localhost:8000"
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - "./app:/app"
+    env_file:
+      - app/.env
+    depends_on:
+      - backend
+    networks:
+      - news_local_services
+    restart: always
+
+networks:
+    news_local_services:
+        name: news_local_services
+        driver: bridge
