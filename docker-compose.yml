@@ -10,30 +10,14 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - "./src:/src"
+      - "./backend:/backend"
     environment:
       - PYTHONBUFFERED=1
-    env_file: ./src/.env
-    depends_on:
-      - news_db
+    env_file: ./backend/.env
     container_name: backend
     networks:
       - news_local_services
     restart: always
-
-  news_db:
-    image: postgres:13-alpine
-    volumes:
-      - ".data/postgres:/var/lib/postgresql/data"
-    environment:
-      POSTGRES_DB: news
-      POSTGRES_USER: news
-      POSTGRES_PASSWORD: news
-    container_name: news_db
-    ports:
-      - "5433:5433"
-    networks:
-      - news_local_services
   
   frontend:
     build:

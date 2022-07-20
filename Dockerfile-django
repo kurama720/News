@@ -11,10 +11,10 @@ RUN set -xe \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 
-COPY src/requirements.txt .
+COPY backend/requirements.txt .
 
 RUN pip install -r requirements.txt
 
-WORKDIR /src
+WORKDIR /backend
 
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
