@@ -1,7 +1,7 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 
 import AppHeader from "../appHeader/AppHeader";
-import RecentNews from "../recentNews/RecentNews";
+import NewsCatalog from "../../pages/newsCatalog/NewsCatalog";
 
 import './App.css';
 
@@ -12,7 +12,7 @@ const App = () => {
       <div className="App">
         <AppHeader />
         <Routes>
-          <Route path='/' element={<RecentNews />} />
+          <Route path='/' element={<NewsCatalog />} />
         </Routes>
       </div>
     </BrowserRouter>
