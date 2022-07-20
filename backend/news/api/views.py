@@ -6,7 +6,7 @@ from news.api.serializers import NewsSerializer
 
 class NewsView(viewsets.ViewSet):
 
-    def list(self):
+    def list(self, request):
         queryset = News.objects.all()
         serializer = NewsSerializer(queryset, many=True)
 
