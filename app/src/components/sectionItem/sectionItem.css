@@ -1,0 +1,20 @@
+.section-item-title {
+    margin-top: 20px;
+}
+
+.section-item-title {
+    font-size: 30px;
+    border-left-style: solid;
+    border-left-color: red;
+    padding-left: 20px;
+}
+
+.section-content-wrapper {
+    display: flex;
+}
+
+.empty-content {
+    margin-top: 20px;
+    font-size: 20px;
+
+}

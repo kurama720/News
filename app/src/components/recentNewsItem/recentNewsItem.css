@@ -1,0 +1,16 @@
+.recent-item {
+    position: relative;
+    padding: 10px;
+    color: white;
+    background-color: #cccccc;
+    text-align: left;
+}
+
+.recent-item-content {
+    position: absolute;
+    bottom: 0;
+}
+
+.recent-item:first-child {
+    grid-row: 1/3;
+}

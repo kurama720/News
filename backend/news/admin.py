@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from news.models import Category, Section, News
+from news.models import Category, Section, News, Image
 
 @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
@@ -18,3 +18,9 @@ class CategoryAdmin(admin.ModelAdmin):
 class SectionAdmin(admin.ModelAdmin):
     list_display = ('name', )
     ordering = ('name', )
+
+
+@admin.register(Image)
+class ImageAdmin(admin.ModelAdmin):
+    list_display = ('local_url', 'news')
+    ordering = ('local_url', )

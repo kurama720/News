@@ -1,52 +1,32 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-import sectionNewsImage from "../../static/section-news-image.jpg"
+import SectionItem from "../sectionItem/SectionItem";
+
 import './sectionNews.css'
 
 const SectionNews = () => {
+    const _apiBase = process.env.REACT_APP_API_URL
+
+    const [sections, setSections] = useState([])
+
+    useEffect ( () => {
+        axios.get(`${_apiBase}/news/section`).then(response => setSections(response.data))
+        //eslint-disable-next-line
+    }, []);
+
+    const sectionElements = sections.map(item => {
+        return (
+            <SectionItem 
+                key={item.id}
+                {...item}
+            />
+        )
+    })
 
     return (
         <div className='section-news-wrapper'>
-            <div className='section-news-title'>
-                News
-            </div>
-            <div className='section-news-items-wrpaper'>
-                <div className='section-news-item'>
-                    <img classname='section-news-item-img' src={sectionNewsImage} width='435'height='250' alt='a news'></img>
-                    <div className='section-news-item-title'>
-                        Title
-                    </div>
-                    <div className='section-news-item-description'>
-                        Description Description Description Description  Description Description  
-                    </div>
-                    <div className='section-news-item-category'>
-                        Category
-                    </div>
-                </div>
-                <div className='section-news-item'>
-                    <img classname='section-news-item-img' src={sectionNewsImage} width='435'height='250' alt='a news'></img>
-                    <div className='section-news-item-title'>
-                        Title
-                    </div>
-                    <div className='section-news-item-description'>
-                        Description Description Description Description  Description Description  
-                    </div>
-                    <div className='section-news-item-category'>
-                        Category
-                    </div>
-                </div>
-                <div className='section-news-item'>
-                    <img classname='section-news-item-img' src={sectionNewsImage} width='435'height='250' alt='a news'></img>
-                    <div className='section-news-item-title'>
-                        Title
-                    </div>
-                    <div className='section-news-item-description'>
-                        Description Description Description Description  Description Description  
-                    </div>
-                    <div className='section-news-item-category'>
-                        Category
-                    </div>
-                </div>
-            </div>
+            {sectionElements}
         </div>
     )
 }
