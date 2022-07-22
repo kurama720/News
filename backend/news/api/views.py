@@ -1,10 +1,10 @@
-from django.shortcuts import get_object_or_404
-from rest_framework import viewsets, views
-from rest_framework.generics import ListCreateAPIView
-from rest_framework.mixins import CreateModelMixin
-from rest_framework.response import Response
-from django_filters.rest_framework import DjangoFilterBackend
+import base64
 
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+from rest_framework import status
+from rest_framework.generics import ListCreateAPIView, GenericAPIView
+from django_filters.rest_framework import DjangoFilterBackend
 
 from news.models import News, Category, Section
 from news.api.serializers import NewsSerializer, CategorySerializer, SectionSerializer
@@ -39,3 +39,21 @@ class SectionListView(ListCreateAPIView):
 
     queryset = Section.objects.all()
     serializer_class = SectionSerializer
+
+
+class NewsGetImage(GenericAPIView):
+
+    @staticmethod
+    def get_image_base64(a_news):
+        news_image = a_news.image
+
+        if news_image:
+            image = news_image.image
+            encoded_string = base64.b64encode(image.read()).decode('utf-8')
+
+            return encoded_string
+
+    def get(self, request, pk):
+        a_news = get_object_or_404(News, id=pk)
+        body = self.get_image_base64(a_news)
+        return HttpResponse(body, status=status.HTTP_200_OK)

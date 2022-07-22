@@ -25,3 +25,8 @@
     border-left-color: aqua;
     padding-left: 10px;
 }
+
+.section-content-item:hover {
+    filter: brightness(110%) saturate(110%);
+
+}

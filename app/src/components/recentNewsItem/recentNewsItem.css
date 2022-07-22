@@ -2,7 +2,6 @@
     position: relative;
     padding: 10px;
     color: white;
-    background-color: #cccccc;
     text-align: left;
 }
 
@@ -13,4 +12,8 @@
 
 .recent-item:first-child {
     grid-row: 1/3;
+}
+
+.recent-item:hover {
+    filter: brightness(120%) saturate(120%);
 }

@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from news.models import Category, Section, News, Image
 
+
 @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
     list_display = ('title', 'created_at', 'category', 'section')
@@ -22,5 +23,5 @@ class SectionAdmin(admin.ModelAdmin):
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ('local_url', 'news')
-    ordering = ('local_url', )
+    list_display = ('image', )
+    ordering = ('image', )

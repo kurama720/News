@@ -1,9 +1,8 @@
 from django.db import models
-from backend.settings import BASE_DIR
 
 
 def news_image_directory_path(instance, filename):
-    return f'images/{filename}'
+    return 'images/news/' + filename
 
 
 class News(models.Model):
@@ -12,9 +11,9 @@ class News(models.Model):
     description = models.TextField()
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
-    category = models.ForeignKey('Category', related_name='news', on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey('Category', related_name='news', on_delete=models.SET_NULL, null=True, blank=True)
     section = models.ForeignKey('Section', related_name='news', on_delete=models.SET_NULL, null=True)
-
+    image = models.ForeignKey('Image', on_delete=models.SET_NULL, null=True, related_name='a_news', blank=True)
 
     class Meta:
 
@@ -25,11 +24,6 @@ class News(models.Model):
     def __str__(self) -> str:
         return self.title
 
-    def set_image(self, file):
-        Image.objects.create(
-            news=self,
-            local_url=file
-        )
 
 class Category(models.Model):
 
@@ -58,8 +52,7 @@ class Section(models.Model):
 
 
 class Image(models.Model):
-    local_url = models.ImageField(upload_to=news_image_directory_path, default='')
-    news = models.ForeignKey('News', on_delete=models.CASCADE, null=True, related_name='img_content', blank=True)
+    image = models.ImageField(upload_to=news_image_directory_path, default='')
 
     def __str__(self):
-        return self.local_url.url
+        return self.image.name

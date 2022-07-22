@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import './appHeader.css'
-import profileIcon from '../../static/images.png'
+import signinIcon from '../../static/signinIcon.png'
 
 const AppHeader = () => {
 
@@ -12,7 +12,7 @@ const AppHeader = () => {
                     News
                 </div>
                 <div className='header-signin'>
-                    <img className='signin-icon' src={profileIcon} alt='profile'></img>
+                    <img className='signin-icon' src={signinIcon} alt='profile'></img>
                     <Link className='signin-item' to='#'>Sign in</Link>
                 </div>
                 <div className="nav-bar">

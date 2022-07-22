@@ -1,14 +1,26 @@
-import recentImage from "../../static/recent-news-image.jpg";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+import noPhoto from '../../static/noPhoto.png';
 import './recentNewsItem.css';
 
 const RecentNewsItem = (props) => {
 
-   const {title, description, category} = props;
+    const {id, title, description, category} = props;
+    const _apiBase = process.env.REACT_APP_API_URL
+
+    const [image, setImage] = useState('')
+
+    useEffect ( () => {
+        axios.get(`${_apiBase}/news/${id}/image`).then(response => setImage(response.data))
+        //eslint-disable-next-line
+    }, [props]);
+
+    const imageChecked = image !== 'None' ? `data:image/jpeg;base64,${image}` : noPhoto
 
     return (
             <div className='recent-item' style={{
-                    background: `linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(0,0,0,1)), url(${recentImage})`,
-                    backgroundSize: 'cover'
+                    background: `linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(0,0,0,1)), center / cover no-repeat url(${imageChecked})`,
                 }}>
                 <div className='recent-item-content'>
                     <p className='recent-title'>
