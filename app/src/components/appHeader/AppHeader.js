@@ -8,9 +8,9 @@ const AppHeader = () => {
     return (
         <header className="header">
             <div className="header-wrapper">
-                <div className="news-title">
+                <Link to={'/'} className="news-title">
                     News
-                </div>
+                </Link>
                 <div className='header-signin'>
                     <img className='signin-icon' src={signinIcon} alt='profile'></img>
                     <Link className='signin-item' to='#'>Sign in</Link>

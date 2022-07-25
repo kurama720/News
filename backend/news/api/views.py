@@ -3,7 +3,7 @@ import base64
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from rest_framework import status
-from rest_framework.generics import ListCreateAPIView, GenericAPIView
+from rest_framework.generics import ListCreateAPIView, GenericAPIView, RetrieveUpdateDestroyAPIView
 from django_filters.rest_framework import DjangoFilterBackend
 
 from news.models import News, Category, Section
@@ -27,6 +27,12 @@ class NewsListView(ListCreateAPIView):
                 category=category if category else None,
                 section=section if section else None,
             )
+
+
+class NewsDetailView(RetrieveUpdateDestroyAPIView):
+
+    queryset = News.objects.all()
+    serializer_class = NewsSerializer
 
 
 class CategoryListView(ListCreateAPIView):

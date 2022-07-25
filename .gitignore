@@ -162,3 +162,5 @@ cython_debug/
 .data/
 .vscode
 /backend/media/
+venv
+app/.env

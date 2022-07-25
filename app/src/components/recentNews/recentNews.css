@@ -1,11 +1,11 @@
 .recent-news-section {
     width: 70%;
-    margin: auto;
+    margin: 0 auto;
     margin-top: 20px;
 }
 
 .section-title-wrapper {
-    margin: 20px;
+    margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
     font-size: 30px;
@@ -18,7 +18,7 @@
 
 .recent-wrapper {
     display: grid;
-    grid-template-columns: minmax(0, 2.2fr) repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 600px) repeat(2, minmax(0, 1fr));
     grid-template-rows: repeat(2, minmax(0, 160px));
     grid-gap: 10px 10px;
 }

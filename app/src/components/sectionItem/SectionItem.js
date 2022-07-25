@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import SectionContentItem from "../sectionContentItem/SectionContentItem"
 
+import loadingIcon from "../../static/loadingIcon.gif"
 import './sectionItem.css';
 
 const SectionItem = (props) => {
@@ -11,9 +12,10 @@ const SectionItem = (props) => {
     const _apiBase = process.env.REACT_APP_API_URL
 
     const [news, setNews] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect ( () => {
-        axios.get(`${_apiBase}/news?limit=3&section__name=${name}`).then(response => setNews(response.data.results))
+        axios.get(`${_apiBase}/news?limit=3&section__name=${name}`).then(response => {setNews(response.data.results); setLoading(false)})
         //eslint-disable-next-line
     }, [name]);
 
@@ -32,7 +34,7 @@ const SectionItem = (props) => {
         </div>
     ) 
 
-    return (
+    const renderLoaded = (
         <div className='section-item-wrapper'>
             <div className='section-item-title'>
                 {name}
@@ -41,6 +43,12 @@ const SectionItem = (props) => {
                 {sectionContentElements.length ? sectionContentElements : renderEmptyContent}
             </div>
          </div>
+    )
+
+    return (
+        <>
+            {loading ? <img src={loadingIcon} alt='loading data' /> : renderLoaded}
+        </>
     )
 }
 
